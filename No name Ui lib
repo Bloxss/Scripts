@@ -1,0 +1,27 @@
+local lib = loadstring(game:HttpGet("https://gist.githubusercontent.com/Bloxss/b16276a25a69deda09bd3b9f62d8a479/raw/ff0aeafd85a5d13016ffc6bb12863e3d953089bf/Paid%2520Ui%2520Lib%2520%255BNot%2520Mine%255D"))()
+local Window = lib:Window("Title Example - Synapse X","Version Example")
+local Tab = Window:Tab("Tab")
+local Tab2 = Window:Tab("Tab 2")
+
+Tab:Button("Button Example", function()
+    print("This button has been pressed")
+ end)
+
+ Tab:Button("Notification Example", function()
+    lib:Notify("Notification", "Notification")
+ end)
+
+ Tab:Toggle("Toggle Example", function(value)
+    print(value)
+ end)
+
+ Tab:Slider("Slider Example",5 , 100, 50, 1, function(value)
+print(value)
+end)
+
+Tab:Dropdown("Dropdown Example","Select one",{"1","2","3","4","5"}, function(value)
+print(value)
+end)
+
+Tab:Paragraph("Paragraph Example","Content Example")
+lib:Notify("Notification Example", "Notification")
