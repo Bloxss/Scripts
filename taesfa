@@ -1,0 +1,295 @@
+
+
+
+
+
+
+local SolarisLib = loadstring(game:HttpGet("https://raw.githubusercontent.com/Stebulous/solaris-ui-lib/main/source.lua"))()
+
+local playerlist = {}
+
+for i,v in pairs(game.Players:GetPlayers())do
+    if v ~= game.Players.LocalPlayer then
+        table.insert(playerlist,v.Name)
+    end
+end
+
+
+local win = SolarisLib:New({
+  Name = "Dwarves VS Zombies",
+  FolderToSave = "DwarvsZomb"
+})
+
+local tab1 = win:Tab("Misc")
+local tab2 = win:Tab("Autofarm")
+local tab3 = win:Tab("Disguise")
+local tab4 = win:Tab("Zombie")
+local tab5 = win:Tab("Dwarves")
+local tab6 = win:Tab("Bandit")
+local tab7 = win:Tab("Teleport")
+local tab8 = win:Tab("Broken")
+local tab9 = win:Tab("Settings")
+local tab10= win:Tab("Tab 1")
+local tab = win:Tab("Tab 1")
+local tab = win:Tab("Tab 1")
+
+local sec = tab1:Section("Misc")
+local sec2 = tab2:Section("Autofarm")
+local sec3 = tab3:Section("Disguise")
+local sec4 = tab4:Section("Zombie")
+local sec5 = tab5:Section("Dwarves")
+local secba = tab6:Section("Bandit")
+local sec6 = tab7:Section("Teleport")
+local sec7 = tab8:Section("Broken")
+local sec8 = tab9:Section("Settings")
+local sec9 = tab10:Section("Elements")
+
+
+------------------------------tab Misc----------------------------
+
+local toggletext = sec:Toggle("2022 Texture", false,"Toggle", function(t)
+    game:WaitForChild("MaterialService")["Use2022Materials"] = t
+end)
+
+local togglebur = sec:Toggle("Burn", false,"Toggle", function(t)
+    game:GetService("ReplicatedStorage").Events.BurnZombie:FireServer(t) 
+end)
+
+local toggledep = sec:Toggle("Bank Gold [require Bank]", false,"Toggle", function(t)
+_G.dep = t
+while _G.dep do
+for i,v in pairs(workspace:GetDescendants()) do
+    if v.name == "Bank" then
+        fireclickdetector(v.DepositButton.ClickDetector)
+    end
+end
+task.wait()
+end
+end)
+
+local togglenoti = sec:Toggle("No Notifications", false,"Toggle", function(t)
+    _G.reme = t
+    while _G.reme do
+    for i,v in pairs(game.Players.LocalPlayer.PlayerGui:GetDescendants()) do
+        if v.name == "GoldEarnedLabel" then
+            v:Destroy()
+        end
+    end
+    task.wait()
+    end
+end)
+
+
+sec:Button("No Role Tag", function()
+    for i,v in pairs(game.Players.LocalPlayer.Character.Head.role:GetDescendants()) do
+        v:Destroy()
+    end
+end)
+
+
+
+sec:Button("No Name Tag", function()
+    for i,v in pairs(game.Players.LocalPlayer.Character.Head.playerName:GetDescendants()) do
+        v:Destroy()
+    end
+end)
+
+
+--------------------------tab3 disguise----------------
+
+sec3:Button("King", function()
+    game:GetService("ReplicatedStorage").Events.RequestDisguise:FireServer("King")
+end)
+
+sec3:Button("Aristocrat", function()
+    game:GetService("ReplicatedStorage").Events.RequestDisguise:FireServer("Aristocrat")
+end)
+
+sec3:Button("Merchant", function()
+    game:GetService("ReplicatedStorage").Events.RequestDisguise:FireServer("Merchant")
+end)
+
+sec3:Button("Priest", function()
+    game:GetService("ReplicatedStorage").Events.RequestDisguise:FireServer("Priest")
+end)
+
+sec3:Button("Guard", function()
+    game:GetService("ReplicatedStorage").Events.RequestDisguise:FireServer("Guard")
+end)
+
+sec3:Button("CraftsDwarf", function()
+    game:GetService("ReplicatedStorage").Events.RequestDisguise:FireServer("Craftsdwarf")
+end)
+local seccha = tab3:Section("Character Changer")
+
+seccha:Button("Teacher", function()
+    game:GetService("ReplicatedStorage").Events.RequestDisguise:FireServer("Teacher")
+end)
+
+seccha:Button("Peasant", function()
+    game:GetService("ReplicatedStorage").Events.RequestDisguise:FireServer("Peasant")
+end)
+
+seccha:Button("Criminal", function()
+    game:GetService("ReplicatedStorage").Events.RequestDisguise:FireServer("Criminal")
+end)
+
+seccha:Button("Bandit", function()
+    game:GetService("ReplicatedStorage").Events.RequestDisguise:FireServer("Bandit")
+end)
+
+seccha:Button("Zombie", function()
+    game:GetService("ReplicatedStorage").Events.RequestDisguise:FireServer("Zombie")
+end)
+
+seccha:Button("ZombieObby", function()
+    game:GetService("ReplicatedStorage").Events.RequestDisguise:FireServer("ZombieObby")
+end)
+
+
+---------------------------tab 4 sec 4 Zombie---------------
+sec4:Textbox("Textbox", true, function(t)
+    for _,patea in pairs(game.Players:GetChildren()) do
+        if string.find(patea[searchmetd], t) then
+            print(patea)
+            playerselect = t
+        end
+    end
+end)
+
+
+local playerdropzom = sec4:Dropdown("Player", playerlist,"","Dropdown", function(t)
+    print(t)
+    playerselect = t
+end)
+sec4:Button("Refresh Dropdown", function()
+    playerdropzom:Refresh(playerlist, true)
+    SolarisLib:Notification("Refresh Dropdown", "successfully Refreshed the Dropdown.")
+end)
+sec4:Button("Be a Zombie without loosing Gold", function()
+    for i,v in pairs(workspace:GetDescendants()) do
+        if v.name == "1" then
+            firetouchinterest(v, game.Players.LocalPlayer.Character.HumanoidRootPart, 0)
+            wait()
+            firetouchinterest(v, game.Players.LocalPlayer.Character.HumanoidRootPart, 1)
+        end
+    end
+end)
+
+sec4:Button("Damage Player [Require Staff]", function()
+    local cord = game.Players.LocalPlayer.Character.Staff.FirePoint.CFrame
+    game.Players.LocalPlayer.Character.Staff.RemoteEvent:FireServer(cord, workspace[playerselect].HumanoidRootPart)
+end)
+
+sec4:Button("Damage Player [Require Crossbow]", function()
+    local cord = game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame
+    game.Players.LocalPlayer.Character.Crossbow.RemoteEvent:FireServer(cord, workspace[playerselect].HumanoidRootPart)
+end)
+
+
+local toggledPalace = sec4:Toggle("Damage Palace", false,"Toggle", function(t)
+    _G.palacedesto = t
+    while _G.palacedesto do
+        game.Players.LocalPlayer.Character.Punch.Strike:FireServer(workspace.Palace.StructureHealthPart)
+        task.wait()
+    end
+
+end)
+
+local toggledPalace = sec4:Toggle("Damage Gate", false,"Toggle", function(t)
+    _G.palacedesto = t
+    while _G.palacedesto do
+        game.Players.LocalPlayer.Character.Punch.Strike:FireServer(game:GetService("Workspace").Walls.GateSection.StructureHealthPart)
+        task.wait()
+    end
+
+end)
+---------------------------tab5 sec 5 dwarf-------------
+local playerdropdwarf = sec5:Dropdown("Player", playerlist,"","Dropdown", function(t)
+    print(t)
+    playerselectdr = t
+end)
+sec5:Button("Refresh Dropdown", function()
+    playerdropdwarf:Refresh(playerlist, true)
+    SolarisLib:Notification("Refresh Dropdown", "successfully Refreshed the Dropdown.")
+end)
+sec5:Button("Damage Player [Require Crossbow]", function()
+    local cord = game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame
+    game.Players.LocalPlayer.Character.Crossbow.RemoteEvent:FireServer(cord, workspace[playerselectdr].HumanoidRootPart)
+end)
+
+sec5:Button("Damage Player [Require Musket]", function()
+    local cord = game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame
+    game.Players.LocalPlayer.Character.Musket.RemoteEvent:FireServer(cord, workspace[playerselectdr].HumanoidRootPart)
+end)
+
+local toggle = sec5:Toggle("Repair Palace", false,"Toggle", function(t)
+    _G.repairpalace = t 
+    while _G.repairpalace do
+        game.Players.LocalPlayer.Character.Hammer.RemoteEvent:FireServer(workspace.Palace.StructureHealthPart)
+        task.wait()
+    end
+end)
+
+
+----------------------------tab7 sec6 Teleport-------------
+sec6:Button("Testing Place ", function()
+    game:GetService("TeleportService"):Teleport(7171410657, LocalPlayer)
+    SolarisLib:Notification("Teleporting", "You Are Bieng Teleported Plesae Wait")
+
+end)
+
+sec6:Button("Main Place", function()
+    game:GetService("TeleportService"):Teleport(6834667991, LocalPlayer)
+    SolarisLib:Notification("Teleporting", "You Are Bieng Teleported Plesae Wait")
+
+end)
+
+-----------------------tab8 sec 7 Broken-------------------------
+local dropdown = sec7:Dropdown("Material", {"Stone","Wood","Food"},"","Dropdown", function(t)
+    mater = t
+end)
+
+
+sec7:Button("Town Market", function()
+    SolarisLib:Notification(""..mater, "The Town "..mater.." Market Has Been Bugged People sell The "..mater.." will get inf "..mater.." and inf Gold To Reset the Market to Normal The Server Must be Reset by Destroying the Palace")
+    game:GetService("ReplicatedStorage").Events["Sell"..mater]:FireServer((0/0)/math.huge)
+    
+end)
+
+sec7:Button("Bandit Market", function()
+    SolarisLib:Notification(""..mater, "The Bandit "..mater.." Market Has Been Bugged People sell The "..mater.." will get inf "..mater.." and inf Gold This Action Cannot Be Undo")
+    game:GetService("ReplicatedStorage").Events["Sell"..mater.."3"]:FireServer((0/0)/math.huge)
+end)
+
+
+------------------------tab9 sec8 settings--------
+local dropdown = sec8:Dropdown("Player Search Method", {"Name","DisplayName"},"Name","Dropdown", function(t)
+    searchmetd = t
+end)
+
+----------------------------------------------------
+
+--auto refresh
+--[[game.Players.PlayerAdded:Connect(function(player)
+    local name = player.Name
+    table.insert(playerlist,name)
+    playerdropzom:Refresh(playerlist, true)
+    playerdropdwarf:Refresh(playerlist, true)
+    print("ref")
+end)
+
+
+game.Players.PlayerRemoving:Connect(function(player)
+    local name = player.Name
+    for i,v in pairs(playerlist)do
+        if v == name then  
+            table.remove(playerlist,i)
+        end
+    end
+    playerdropzom:Refresh(playerlist,true)
+    playerdropdwarf:Refresh(playerlist,true)
+    print("ref")
+end)]]
+
+
