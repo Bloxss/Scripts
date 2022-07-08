@@ -1,6 +1,49 @@
+---------custom chat ui uwu----------
+while task.wait() do
+repeat wait() until game.Players.LocalPlayer.PlayerGui:FindFirstChild("Chat")
 
+playerChat = game.Players.LocalPlayer:FindFirstChild('PlayerGui').Chat
 
+messageFrame = playerChat.Frame.ChatChannelParentFrame
+typingFrame1 = playerChat.Frame.ChatBarParentFrame.Frame
+typingFrame2 = playerChat.Frame.ChatBarParentFrame.Frame.BoxFrame
 
+--Transparencia do chat
+Opacity = NumberSequence.new{
+	NumberSequenceKeypoint.new(0,1),
+	NumberSequenceKeypoint.new(1,0)
+}
+--Posição
+playerChat.Frame.AnchorPoint = Vector2.new(0,0)
+playerChat.Frame.Position = UDim2.new(0.002, 0, 0, 0)
+
+--Ui Corners ;3
+
+UC3 = Instance.new("UICorner", messageFrame)
+UC3.CornerRadius = UDim.new(0.1, 0)
+
+UC1 = Instance.new("UICorner", typingFrame1)
+UC1.CornerRadius = UDim.new(0.3, 0)
+
+UC2 = Instance.new("UICorner", typingFrame2)
+UC2.CornerRadius = UDim.new(0.3, 0)
+
+--Ui Gradients
+
+UG1 = Instance.new("UIGradient", messageFrame)
+UG1.Rotation = 180
+UG1.Transparency = Opacity
+
+UG2 = Instance.new("UIGradient", typingFrame1)
+UG2.Rotation = 180
+UG2.Transparency = Opacity
+
+UG3 = Instance.new("UIGradient", typingFrame2)
+UG3.Rotation = 180
+UG3.Transparency = Opacity
+end
+
+--------------------------------------
 
 
 
